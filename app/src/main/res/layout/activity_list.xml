@@ -1,9 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.ListActivity">
+    android:background="@drawable/now_playing_controls_background_light">
 
-</android.support.constraint.ConstraintLayout>
+    <include layout="@layout/title_home"
+        android:id="@+id/title_home">
+
+    </include>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/title_home"
+        android:layout_above="@+id/linear_layout">
+        <android.support.v4.view.PagerTitleStrip
+            android:id="@+id/title_strip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:textAlignment="center"/>
+    </android.support.v4.view.ViewPager>
+
+    <LinearLayout
+        android:id="@+id/linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+        <include
+            android:id="@+id/bar"
+            layout="@layout/bar_player" />
+    </LinearLayout>
+
+
+</RelativeLayout>

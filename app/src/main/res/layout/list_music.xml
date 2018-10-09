@@ -1,6 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:background="@drawable/now_playing_controls_background_light"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/classification"
+        android:layout_width="match_parent"
+        android:layout_height="22dp"
+        android:maxLines="1"
+        android:ellipsize="end"
+        android:paddingLeft="10dp"
+        android:background="@color/colorClassification"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="18sp"
+        android:text="" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textSize="25sp"
+            android:text="Title"
+            android:layout_toStartOf="@+id/status" />
 
+        <ImageView
+            android:id="@+id/status"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:scaleType="fitCenter"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_above="@+id/artist" />
+
+        <TextView
+            android:id="@+id/artist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/title"
+            android:layout_alignLeft="@+id/title"
+            android:layout_toLeftOf="@+id/duration"
+            android:paddingLeft="5dp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textSize="15sp"
+            android:text="Artist"/>
+
+        <TextView
+            android:id="@+id/duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/title"
+            android:layout_alignRight="@+id/status"
+
+            android:text="00:00"/>
+
+    </RelativeLayout>
 </LinearLayout>

@@ -49,11 +49,6 @@ import java.util.List;
 public class ListActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String SHARED_PREFERENCES_NAME = "music_player";
 
-    private static final int PERMISSION_REQUEST_CODE = 1;
-    private static String[] permissionArray = new String[] {
-            Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.RECORD_AUDIO,
-    };
 
     private List<BaseAdapter> mAdapterList;
 
@@ -457,23 +452,7 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
         }, new IntentFilter(AudioPlayService.BROADCAST_EVENT_FILTER));
-
-        // 权限分配
-        List<String> requestList = new ArrayList<>();
-
-        for (String permission : permissionArray) {
-            if (ActivityCompat.checkSelfPermission(this, permission)
-                    != PermissionChecker.PERMISSION_GRANTED) {
-                requestList.add(permission);
-            }
-        }
-
-        if (requestList.size() > 0) {
-            ActivityCompat.requestPermissions(this, requestList.toArray(new String[] {}),
-                    PERMISSION_REQUEST_CODE);
-        } else {
-            init();
-        }
+        init();
     }
 
     @Override
@@ -483,32 +462,6 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mEventReceiver);
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode) {
-            case PERMISSION_REQUEST_CODE:
-                boolean good = true;
-                for (int i = 0; i < permissions.length; ++i) {
-                    if (grantResults[i] != PermissionChecker.PERMISSION_GRANTED) {
-                        AlertDialog.Builder builder = new AlertDialog.Builder(ListActivity.this);
-                        builder.setTitle("提示").setMessage("不允许读取SD卡权限则无法正常使用哦")
-                                .setPositiveButton("好的", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        ListActivity.super.finish();
-                                    }
-                                }).show();
-                        good = false;
-                        break;
-                    }
-                }
-                if (good) {
-                    init();
-                }
-                break;
-        }
-    }
 
     @Override
     public void finish() {

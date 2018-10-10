@@ -58,7 +58,7 @@ public class WelcomeActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, requestList.toArray(new String[] {}),
                     PERMISSION_REQUEST_CODE);
         } else {
-            handler.sendEmptyMessageDelayed(0,3000);
+            handler.sendEmptyMessageDelayed(0,100);
         }
 
 
@@ -85,7 +85,7 @@ public class WelcomeActivity extends AppCompatActivity {
                     }
                 }
                 if (good) {
-                    handler.sendEmptyMessageDelayed(0,3000);
+                    handler.sendEmptyMessageDelayed(0,100);
                 }
                 break;
         }
@@ -95,12 +95,12 @@ public class WelcomeActivity extends AppCompatActivity {
         File musicDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC).getPath());
         final File[] toBeScannedMusicFiles = musicDir.listFiles();
         if(toBeScannedMusicFiles != null){
-            String[] toBeScanerMusicPath = new String[toBeScannedMusicFiles.length];
+            String[] toBeScannerMusicPath = new String[toBeScannedMusicFiles.length];
             for(int i = 0; i < toBeScannedMusicFiles.length; i++){
-                toBeScanerMusicPath[i] = toBeScannedMusicFiles[i].getAbsolutePath();
+                toBeScannerMusicPath[i] = toBeScannedMusicFiles[i].getAbsolutePath();
             }
             MediaScannerConnection.scanFile(WelcomeActivity.this,
-                    toBeScanerMusicPath, null, new MediaScannerConnection.OnScanCompletedListener() {
+                    toBeScannerMusicPath, null, new MediaScannerConnection.OnScanCompletedListener() {
                         @Override
                         public void onScanCompleted(String s, Uri uri) {
                             Intent intent = new Intent(WelcomeActivity.this, ListActivity.class);

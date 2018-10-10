@@ -18,6 +18,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.andremion.music.MusicCoverView;
 import com.tcl.b2.musicplayer.R;
@@ -26,7 +27,7 @@ import com.tcl.b2.musicplayer.util.MediaUtils;
 import com.tcl.b2.musicplayer.view.VisualizerView;
 
 
-import java.io.File;;
+import java.io.File;
 import java.util.ArrayList;
 
 import me.zhengken.lyricview.LyricView;
@@ -76,7 +77,6 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
     private long mStartTime;
 
     /**
-     * UI更新
      * @param bundle 包含音乐信息的bundle
      */
     private void updateUI(Bundle bundle) {
@@ -213,7 +213,6 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
     private void loadLyrics(String lyricsPath) {
         File file = new File(lyricsPath);
         /*if (!file.exists()) {
-            // 造一个假文件
             file = new File(getCacheDir(), "default.lrc");
             if (!file.exists()) {
                 FileOutputStream fos = null;
@@ -248,7 +247,7 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
         intent.putExtra(AudioPlayService.ACTION_KEY, AudioPlayService.CHANGE_LIST_SHUFFLE_ACTION);
         intent.putExtra(AudioPlayService.LIST_SHUFFLE_BOOL, mIsShuffle = !mIsShuffle);
         startService(intent);
-        //Toast.makeText(this, "切换到" + (mIsShuffle ? "随机播放" : "顺序播放"), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "切换到" + (mIsShuffle ? "随机播放" : "顺序播放"), Toast.LENGTH_SHORT).show();
         if (mIsShuffle) {
             mShuffleButton.setImageResource(R.drawable.btn_playback_shuffle_all);
         } else {

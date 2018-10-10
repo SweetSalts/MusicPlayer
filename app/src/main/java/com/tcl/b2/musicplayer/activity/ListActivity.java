@@ -63,7 +63,7 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
     private BroadcastReceiver mEventReceiver;
 
     private List<List<AudioItem>> mListOfAudioItemList;
-    private int mPlayingIndex = -1;
+    private int mPlayingIndex = 0;
 
     private List<Integer> mShuffleIndex;
 
@@ -453,6 +453,7 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
             }
         }, new IntentFilter(AudioPlayService.BROADCAST_EVENT_FILTER));
         init();
+        playAudio(0);
     }
 
     @Override

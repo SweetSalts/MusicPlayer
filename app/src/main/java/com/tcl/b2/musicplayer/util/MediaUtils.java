@@ -24,7 +24,8 @@ public class MediaUtils {
         ContentResolver contentResolver = context.getApplicationContext().getContentResolver();
 
         // 获得内部存储的音频
-        Cursor cursor = contentResolver.query(MediaStore.Audio.Media.INTERNAL_CONTENT_URI, null, null, null, null);
+        Cursor cursor = contentResolver.query(MediaStore.Audio.Media.INTERNAL_CONTENT_URI, null,
+                null, null, null);
         for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
             Bundle bundle = new Bundle();
             for (int i = 0; i < cursor.getColumnCount(); ++i) {
@@ -44,7 +45,8 @@ public class MediaUtils {
         cursor.close();
 
         // 获得外部存储的音频
-        cursor = contentResolver.query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, null, null, null, null);
+        cursor = contentResolver.query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
+                null, null, null, null);
         for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
             Bundle bundle = new Bundle();
             for (int i = 0; i < cursor.getColumnCount(); ++i) {
@@ -62,6 +64,7 @@ public class MediaUtils {
             list.add(new Audio(bundle));
         }
         cursor.close();
+
 
         return list;
     }

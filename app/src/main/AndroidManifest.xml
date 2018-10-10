@@ -6,7 +6,7 @@
 
     <uses-feature
         android:name="android.software.leanback"
-        android:required="false" />
+        android:required="true" />
     <uses-feature
         android:name="android.hardware.touchscreen"
         android:required="false" />
@@ -21,9 +21,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activity.ListActivity"
+            android:name=".activity.WelcomeActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"
+            android:screenOrientation="landscape"
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,12 +32,18 @@
             </intent-filter>
         </activity>
 
+
         <service
             android:name=".service.AudioPlayService"
             android:enabled="true" />
 
         <activity
             android:name=".activity.PlayerActivity"
+            android:screenOrientation="landscape"
+            android:launchMode="singleTask" />
+        <activity
+            android:name=".activity.ListActivity"
+            android:screenOrientation="landscape"
             android:launchMode="singleTask" />
     </application>
 

@@ -4,8 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/now_playing_controls_background_light"
-    android:focusable="true"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:nextFocusDown="@layout/bar_player">
     <TextView
         android:id="@+id/classification"
         android:layout_width="match_parent"

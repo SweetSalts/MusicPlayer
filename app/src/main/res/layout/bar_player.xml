@@ -3,7 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clickable="true"
-    android:background="@color/colorPrimary">
+    android:focusable="true"
+    android:background="@drawable/selector"
+    android:nextFocusRight="@id/home_pauseButton">
 
     <RelativeLayout
         android:id="@+id/home_titlebar"
@@ -90,7 +92,7 @@
             android:layout_height="40dp"
             android:layout_gravity="center"
             android:alpha="0.9"
-            android:background="?android:selectableItemBackground"
+            android:background="@drawable/selector"
             android:src="@drawable/skip_next"
             android:layout_centerVertical="true"
             android:layout_toEndOf="@+id/homebar_background" />

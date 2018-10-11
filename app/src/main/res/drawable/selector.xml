@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_selected="true">
+
+    <item android:state_focused="true">
         <shape>
             <solid android:color="@android:color/holo_blue_light" />
         </shape>
     </item>
-    <item android:drawable="@drawable/ab_texture_tile_light"></item>
+    <item android:drawable="@color/colorPrimary"></item>
 </selector>

@@ -1,6 +1,5 @@
 package com.tcl.b2.musicplayer.activity;
 
-import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -11,10 +10,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.LocalBroadcastManager;
-import android.support.v4.content.PermissionChecker;
 import android.support.v4.view.PagerTitleStrip;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
@@ -50,22 +46,22 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
     private static final String SHARED_PREFERENCES_NAME = "music_player";
 
 
-    private List<BaseAdapter> mAdapterList;
+    private List<BaseAdapter> mAdapterList;                         //适配器列表
 
-    private TextView mBarTitle;
-    private TextView mBarArtist;
-    private ImageView mBarAlbum;
-    private ImageButton mBarPauseButton;
-    private ImageButton mBarNextButton;
+    private TextView mBarTitle;                                     //歌曲名
+    private TextView mBarArtist;                                    //作者
+    private ImageView mBarAlbum;                                    //专辑
+    private ImageButton mBarPauseButton;                           //暂停按钮
+    private ImageButton mBarNextButton;                             //下一首
     private View mBarPauseBackground;
-    private PagerTitleStrip mPaperTitleStrip;
+    private PagerTitleStrip mPaperTitleStrip;                       //tittle切换栏
 
-    private BroadcastReceiver mEventReceiver;
+    private BroadcastReceiver mEventReceiver;                       //广播接收器
 
-    private List<List<AudioItem>> mListOfAudioItemList;
-    private int mPlayingIndex = 0;
+    private List<List<AudioItem>> mListOfAudioItemList;             //歌曲列表
+    private int mPlayingIndex = 0;                                   //当前播放到第几首
 
-    private List<Integer> mShuffleIndex;
+    private List<Integer> mShuffleIndex;                              //随机顺序
 
     private int mLastPlay = -1;
     private int mLastIndex = -1;
@@ -74,7 +70,7 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
     private boolean mIsShuffle = false;
 
     private int mLoopWay;
-
+//获取拼音字符串
     private static String getPinyinString(String str) {
         StringBuilder builder = new StringBuilder();
         for (int i = 0; i < str.length(); ++i) {
@@ -96,13 +92,13 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
         editor.putBoolean(AudioPlayService.LIST_SHUFFLE_BOOL, mIsShuffle);
         editor.apply();
     }
-
+    //sharedpreferences读出mloopway,mshuffle的值
     private void readStatus() {
         SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFERENCES_NAME, MODE_PRIVATE);
         mLoopWay = sharedPreferences.getInt(AudioPlayService.LOOP_WAY_INT, AudioPlayService.LIST_NOT_LOOP);
         mIsShuffle = sharedPreferences.getBoolean(AudioPlayService.LIST_SHUFFLE_BOOL, false);
     }
-
+//获得包含歌曲信息的intent
     private Intent getAudioIntent(Audio audio) {
         Intent intent = new Intent();
         intent.putExtra(AudioPlayService.AUDIO_PATH_STR, audio.getPath());
@@ -113,7 +109,7 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
         intent.putExtra(AudioPlayService.AUDIO_CURRENT_INT, 0);
         return intent;
     }
-
+//播放音乐
     private void playAudio(int position) {
         playAudio(position, true, false, false);
     }
@@ -215,7 +211,8 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     /**
-     * 初始化列表
+     * 初始化列表，title数组，添加"Audio","Artist","Album"
+     * 启动排序比较器：Comparator<Audio>,然后进行拼音排序
      */
     private void init() {
         // 标题
@@ -254,7 +251,7 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
                     }
                 }
         };
-        // 转换
+        // 定义接口，重写apply()方法
         AudioToAudioItem[] trans = new AudioToAudioItem[] {
                 new AudioToAudioItem() {
                     @Override
@@ -291,7 +288,8 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
 
         mAdapterList = new ArrayList<>();
         mListOfAudioItemList = new ArrayList<>();
-
+//通过Comparator获得的数据，初始化list。
+// 通过apply()加入作者等数据的itemlist，再将其加入mListOfAudioItemList
         for (int i = 0; i < titles.length; ++i) {
             List<Audio> list = AudioList.getAudioList(this, cmps[i]);
             List<AudioItem> itemList = new ArrayList<>();
@@ -299,11 +297,13 @@ public class ListActivity extends AppCompatActivity implements View.OnClickListe
                 itemList.add(trans[i].apply(audio));
             }
             mListOfAudioItemList.add(itemList);
+            //adapter将数据绑定在list_music布局中
             final AudioListAdapter adapter = new AudioListAdapter(this, R.layout.list_music, itemList);
             mAdapterList.add(adapter);
             ListView listView = new ListView(this);
-            listView.setAdapter(adapter);
+            listView.setAdapter(adapter);   //把数据映射到界面
             final int index = i;
+            //list点击事件,调用playAudio()
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

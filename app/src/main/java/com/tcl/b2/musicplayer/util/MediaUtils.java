@@ -102,6 +102,7 @@ public class MediaUtils {
         return albumArt;
     }
 
+    //获取专辑位图
     public static Bitmap getAlbumBitmapDrawable(Audio audio) {
         if (audio == null) {
             return null;

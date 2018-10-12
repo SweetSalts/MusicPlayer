@@ -12,7 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 
 
-
+//加特效
 public class VisualizerView extends View {
     private List<Integer> mFFT;
     private Rect mRect;

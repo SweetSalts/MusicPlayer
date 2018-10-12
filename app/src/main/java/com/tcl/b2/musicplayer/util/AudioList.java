@@ -10,12 +10,13 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-
+//定义音频列表类
 public class AudioList {
-    private static Object mLock = new Object();
-    private static List<Audio> mAudioList = null;
+    private static Object mLock = new Object();                                  //对象锁
+    private static List<Audio> mAudioList = null;                               //音频列表
     private AudioList() {}
 
+    //根据上下文环境，生成列表
     public static List<Audio> getAudioList(Context context) {
         if (mAudioList == null) {
             synchronized (mLock) {

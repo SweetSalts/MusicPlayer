@@ -35,21 +35,21 @@ import me.zhengken.lyricview.LyricView;
 public class PlayerActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String DEFAULT_LYRICS_STRING = "[ti:生活很美好]";
 
-    private SeekBar mSeekBar;
-    private TextView mCurrentTextView;
+    private SeekBar mSeekBar;                    //进度条
+    private TextView mCurrentTextView;           //当前文字试图
     private TextView mDurationTextView;
-    private TextView mTitleTextView;
-    private TextView mArtistTextView;
+    private TextView mTitleTextView;             //当前标题
+    private TextView mArtistTextView;            //当前歌手名
     private MusicCoverView mAlbumImageView;
     private VisualizerView mVisualizerView;
-    private FrameLayout mFrameLayout;
-    private ImageButton mPauseButton;
-    private ImageButton mNextButton;
-    private ImageButton mPreviousButton;
-    private ImageButton mRepeatButton;
-    private ImageButton mShuffleButton;
+    private FrameLayout mFrameLayout;            //布局
+    private ImageButton mPauseButton;            //暂停按钮
+    private ImageButton mNextButton;             //下一首按钮
+    private ImageButton mPreviousButton;         //上一曲按钮
+    private ImageButton mRepeatButton;           //单曲循环按钮
+    private ImageButton mShuffleButton;          //随机播放按钮
     private ImageButton mReturnButton;
-    private LyricView mLyricView;
+    private LyricView mLyricView;                //歌词信息
     private View mPauseButtonBackground;
 
     private Object mLock = new Object();
@@ -60,8 +60,8 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
     private String mPath;
 
     private boolean onDrag = false;
-    private boolean mIsShuffle;
-    private boolean mIsPlay;
+    private boolean mIsShuffle;             //是否随机播放
+    private boolean mIsPlay;                //是否正在播放
 
     private boolean mIsLoadAlbum = false;
 
@@ -69,7 +69,7 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
 
     private boolean mIsAlbum;
 
-
+	//定义广播接收器
     private BroadcastReceiver mPlayingReceiver;
     private BroadcastReceiver mVisualizerReceiver;
     private BroadcastReceiver mPlayEventReceiver;
@@ -197,7 +197,7 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
     /**
      * 转换音乐路径为歌词路径
      * @param musicPath 音乐路径
-     * @return
+     * @return 歌词路径
      */
     private String getLyricsPath(String musicPath) {
         if (musicPath == null) {
@@ -510,6 +510,7 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     protected void onDestroy() {
+		//进一步检测是否回收资源
         super.onDestroy();
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mPlayingReceiver);
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mVisualizerReceiver);
@@ -518,12 +519,14 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     protected void onNewIntent(Intent intent) {
+		//避免Activity被多次实体化
         super.onNewIntent(intent);
         updateUI(intent.getExtras());
     }
 
     @Override
     public void onClick(View v) {
+		//按钮事件响应
         switch (v.getId()) {
             case R.id.playPauseButton: case R.id.playPauseButtonBackground:
                 pauseMusic();

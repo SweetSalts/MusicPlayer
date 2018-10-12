@@ -44,6 +44,7 @@ public class WelcomeActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_welcome);
+
         // 权限分配
         List<String> requestList = new ArrayList<>();
 
@@ -91,6 +92,7 @@ public class WelcomeActivity extends AppCompatActivity {
         }
     }
 
+    //扫描系统中的音乐
     private void scanMusic(){
         File musicDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC).getPath());
         final File[] toBeScannedMusicFiles = musicDir.listFiles();

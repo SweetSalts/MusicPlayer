@@ -212,26 +212,6 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
      */
     private void loadLyrics(String lyricsPath) {
         File file = new File(lyricsPath);
-        /*if (!file.exists()) {
-            file = new File(getCacheDir(), "default.lrc");
-            if (!file.exists()) {
-                FileOutputStream fos = null;
-                try {
-                    fos = new FileOutputStream(file);
-                    fos.write(DEFAULT_LYRICS_STRING.getBytes());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } finally {
-                    if (fos != null) {
-                        try {
-                            fos.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-            }
-        }*/
         try {
             mLyricView.setLyricFile(file);
         } catch (Exception e) {
@@ -264,9 +244,11 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
         if (mLoopWay == AudioPlayService.LIST_NOT_LOOP) {
             mLoopWay = AudioPlayService.LIST_LOOP;
             mRepeatButton.setImageResource(R.drawable.btn_playback_repeat_all);
+            Toast.makeText(this, "切换到列表循环" ,Toast.LENGTH_SHORT).show();
         } else if (mLoopWay == AudioPlayService.LIST_LOOP) {
             mLoopWay = AudioPlayService.AUDIO_REPEAT;
             mRepeatButton.setImageResource(R.drawable.btn_playback_repeat_one);
+            Toast.makeText(this, "切换到单曲循环" ,Toast.LENGTH_SHORT).show();
         } else {
             mLoopWay = AudioPlayService.LIST_NOT_LOOP;
             mRepeatButton.setImageResource(R.drawable.repeat);
@@ -404,6 +386,7 @@ public class PlayerActivity extends AppCompatActivity implements View.OnClickLis
                     int second = totalSecond % 60;
                     mCurrentTextView.setText(String.format("%02d:%02d", minute, second));
                     mLyricView.setCurrentTimeMillis(changedCurrent);
+                    seekMusic(changedCurrent);
                 }
             }
 

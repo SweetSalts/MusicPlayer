@@ -110,4 +110,9 @@ public class WelcomeActivity extends AppCompatActivity {
                     });
         }
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }
